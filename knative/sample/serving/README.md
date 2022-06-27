@@ -10,11 +10,9 @@
 
 
 
+
+
 ### API
-
-------
-
-
 
 **Route**：定义网络端口，映射一个或多个revision
 
@@ -24,4 +22,9 @@
 
 **Service**：管理应用的生命周期，确保应用拥有configuration和route，并可以应用拥有configuration和route，并可以定义应用是使请求导向特定的revision（traffic配置）
 
+
 <div align=center><img src=https://github.com/asialeaf/markdown/blob/main/images/knative-service.svg></div>
+
+### 架构图
+
+<div align=center><img src=https://github.com/asialeaf/markdown/blob/main/images/knative-workflow.png></div>
