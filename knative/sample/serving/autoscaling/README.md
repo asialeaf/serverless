@@ -12,9 +12,10 @@ Knative Serving 为应用程序提供自动缩放或自动缩放，以匹配传�
 #### 功能
 
 - 自动缩放器（KPA、HPA）
-- Autoscaler 监视的指标类型
+- Autoscaler 监视的指标类型(concurrency、rps、cpu、memory)
 - Autoscaler 监视的指标类型的目标
 - 缩放至0
-- 配置缩放范围
-- 配置稳定窗口时间（KPA）
+- 配置缩放范围(min-scale和max-scale)
+- 额外自动扩缩配置(window和panic)
 - 配置container-freezer
+- 流量切分

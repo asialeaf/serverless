@@ -1,0 +1,57 @@
+apiVersion: networking.internal.knative.dev/v1alpha1
+kind: ServerlessService
+metadata:
+  annotations:
+    autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
+    serving.knative.dev/creator: kubernetes-admin
+  creationTimestamp: "2022-06-28T03:14:03Z"
+  generation: 4
+  labels:
+    app: helloworld-go-00001
+    serving.knative.dev/configuration: helloworld-go
+    serving.knative.dev/configurationGeneration: "1"
+    serving.knative.dev/configurationUID: e4c8ca33-351d-47ce-8765-c06dd61cff50
+    serving.knative.dev/revision: helloworld-go-00001
+    serving.knative.dev/revisionUID: 722740ff-af00-4df6-a80a-ca4ef31d0307
+    serving.knative.dev/service: helloworld-go
+    serving.knative.dev/serviceUID: 0c7db8bc-f337-4dd1-93fa-e57e793c975f
+  name: helloworld-go-00001
+  namespace: default
+  ownerReferences:
+  - apiVersion: autoscaling.internal.knative.dev/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: PodAutoscaler
+    name: helloworld-go-00001
+    uid: 66555b2e-b3cc-4d99-87da-eab190744a7f
+  resourceVersion: "2032935"
+  uid: a3b830f3-9851-4b2e-9ec4-0f7305fc5c80
+spec:
+  mode: Proxy
+  numActivators: 3
+  objectRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: helloworld-go-00001-deployment
+  protocolType: http1
+status:
+  conditions:
+  - lastTransitionTime: "2022-06-28T03:14:03Z"
+    message: Revision is backed by Activator
+    reason: ActivatorEndpointsPopulated
+    severity: Info
+    status: "True"
+    type: ActivatorEndpointsPopulated
+  - lastTransitionTime: "2022-06-28T03:15:09Z"
+    message: K8s Service is not ready
+    reason: NoHealthyBackends
+    status: Unknown
+    type: EndpointsPopulated
+  - lastTransitionTime: "2022-06-28T03:15:09Z"
+    message: K8s Service is not ready
+    reason: NoHealthyBackends
+    status: Unknown
+    type: Ready
+  observedGeneration: 4
+  privateServiceName: helloworld-go-00001-private
+  serviceName: helloworld-go-00001

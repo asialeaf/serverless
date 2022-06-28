@@ -1,0 +1,76 @@
+apiVersion: networking.internal.knative.dev/v1alpha1
+kind: Ingress
+metadata:
+  annotations:
+    networking.internal.knative.dev/rollout: '{"configurations":[{"configurationName":"helloworld-go","percent":100,"revisions":[{"revisionName":"helloworld-go-00001","percent":100}],"stepParams":{}}]}'
+    networking.knative.dev/ingress.class: istio.ingress.networking.knative.dev
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+  creationTimestamp: "2022-06-28T03:14:09Z"
+  finalizers:
+  - ingresses.networking.internal.knative.dev
+  generation: 1
+  labels:
+    serving.knative.dev/route: helloworld-go
+    serving.knative.dev/routeNamespace: default
+    serving.knative.dev/service: helloworld-go
+  name: helloworld-go
+  namespace: default
+  ownerReferences:
+  - apiVersion: serving.knative.dev/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Route
+    name: helloworld-go
+    uid: 4ef2fe3c-cdf6-4f8d-91bd-d800408a4723
+  resourceVersion: "2032157"
+  uid: 1e501a3a-8111-411c-a6f0-5e77cac136d8
+spec:
+  httpOption: Enabled
+  rules:
+  - hosts:
+    - helloworld-go.default
+    - helloworld-go.default.svc
+    - helloworld-go.default.svc.cluster.local
+    http:
+      paths:
+      - splits:
+        - appendHeaders:
+            Knative-Serving-Namespace: default
+            Knative-Serving-Revision: helloworld-go-00001
+          percent: 100
+          serviceName: helloworld-go-00001
+          serviceNamespace: default
+          servicePort: 80
+    visibility: ClusterLocal
+  - hosts:
+    - helloworld-go.default.asialeaf.cn
+    http:
+      paths:
+      - splits:
+        - appendHeaders:
+            Knative-Serving-Namespace: default
+            Knative-Serving-Revision: helloworld-go-00001
+          percent: 100
+          serviceName: helloworld-go-00001
+          serviceNamespace: default
+          servicePort: 80
+    visibility: ExternalIP
+status:
+  conditions:
+  - lastTransitionTime: "2022-06-28T03:14:09Z"
+    status: "True"
+    type: LoadBalancerReady
+  - lastTransitionTime: "2022-06-28T03:14:09Z"
+    status: "True"
+    type: NetworkConfigured
+  - lastTransitionTime: "2022-06-28T03:14:09Z"
+    status: "True"
+    type: Ready
+  observedGeneration: 1
+  privateLoadBalancer:
+    ingress:
+    - domainInternal: knative-local-gateway.istio-system.svc.cluster.local
+  publicLoadBalancer:
+    ingress:
+    - domainInternal: istio-ingressgateway.istio-system.svc.cluster.local

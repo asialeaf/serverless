@@ -1,0 +1,74 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  annotations:
+    networking.internal.knative.dev/rollout: '{"configurations":[{"configurationName":"helloworld-go","percent":100,"revisions":[{"revisionName":"helloworld-go-00001","percent":100}],"stepParams":{}}]}'
+    networking.knative.dev/ingress.class: istio.ingress.networking.knative.dev
+    serving.knative.dev/creator: kubernetes-admin
+    serving.knative.dev/lastModifier: kubernetes-admin
+  creationTimestamp: "2022-06-28T03:14:09Z"
+  generation: 1
+  labels:
+    networking.internal.knative.dev/ingress: helloworld-go
+    serving.knative.dev/route: helloworld-go
+    serving.knative.dev/routeNamespace: default
+  name: helloworld-go-mesh
+  namespace: default
+  ownerReferences:
+  - apiVersion: networking.internal.knative.dev/v1alpha1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Ingress
+    name: helloworld-go
+    uid: 1e501a3a-8111-411c-a6f0-5e77cac136d8
+  resourceVersion: "2032146"
+  uid: c1e8ac8e-dbdb-439e-bc4b-fef7e530c0d3
+spec:
+  gateways:
+  - mesh
+  hosts:
+  - helloworld-go.default
+  - helloworld-go.default.svc
+  - helloworld-go.default.svc.cluster.local
+  http:
+  - headers:
+      request:
+        set:
+          K-Network-Hash: fd2038b95bfc28495abcd791b2386d4327a0c23defaece155bd146bc9c10a289
+    match:
+    - authority:
+        prefix: helloworld-go.default
+      gateways:
+      - mesh
+      headers:
+        K-Network-Hash:
+          exact: override
+    retries: {}
+    route:
+    - destination:
+        host: helloworld-go-00001.default.svc.cluster.local
+        port:
+          number: 80
+      headers:
+        request:
+          set:
+            Knative-Serving-Namespace: default
+            Knative-Serving-Revision: helloworld-go-00001
+      weight: 100
+  - match:
+    - authority:
+        prefix: helloworld-go.default
+      gateways:
+      - mesh
+    retries: {}
+    route:
+    - destination:
+        host: helloworld-go-00001.default.svc.cluster.local
+        port:
+          number: 80
+      headers:
+        request:
+          set:
+            Knative-Serving-Namespace: default
+            Knative-Serving-Revision: helloworld-go-00001
+      weight: 100
